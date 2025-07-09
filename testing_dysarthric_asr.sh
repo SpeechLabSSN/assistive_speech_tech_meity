@@ -2,7 +2,7 @@
 
 
 
-input_wav_path="ASR_test_data/FDH/test/S20_1_4.wav"
+input_wav_path=$1
 
 
 
@@ -15,6 +15,7 @@ source path.sh
 rm -rf ./mfcc
 rm -rf ./wav_test
 rm -rf ./output_MONO.txt
+rm -rf ./test_one
 
 mkdir -p test_one
 mkdir -p wav_test
@@ -35,27 +36,26 @@ paste test_one/spk test_one/utt > test_one/spk2utt
 
 #feature extraction for test cases
 
-steps/make_mfcc.sh --cmd "run.pl" --nj 1 test_one models/asr/kaldi_dysarthria/exp_FDH/make_mfcc/test mfcc
+steps/make_mfcc.sh --cmd "run.pl" --nj 1 test_one models/asr/kaldi_dysarthria/exp_$spk/make_mfcc/test mfcc
 echo ""
 echo ""
 
-steps/compute_cmvn_stats.sh test_one models/asr/kaldi_dysarthria/exp_FDH/make_mfcc/test mfcc
+steps/compute_cmvn_stats.sh test_one models/asr/kaldi_dysarthria/exp_$spk/make_mfcc/test mfcc
 echo ""
 echo ""
 
 #decode using monophone GMM-HMM
 
-steps/decode.sh --nj "1" --cmd "run.pl" --model ./models/asr/kaldi_dysarthria/exp_FDH/mono/40.mdl models/asr/kaldi_dysarthria/exp_FDH/mono/graph test_one models/asr/kaldi_dysarthria/exp_FDH/mono/decode
+steps/decode.sh --nj "1" --cmd "run.pl" --model ./models/asr/kaldi_dysarthria/exp_$spk/mono/40.mdl models/asr/kaldi_dysarthria/exp_$spk/mono/graph test_one models/asr/kaldi_dysarthria/exp_$spk/mono/decode
 
 
 #Store the decoded result
 
-grep -h -Ev '^(#|nnet|LOG|apply|gmm|add|latgen-faster-mapped|copy|WARNING)' models/asr/kaldi_dysarthria/exp_FDH/mono/decode/log/decode.1.log > output_MONO.txt
+grep -h -Ev '^(#|nnet|LOG|apply|gmm|add|latgen-faster-mapped|copy|WARNING)' models/asr/kaldi_dysarthria/exp_$spk/mono/decode/log/decode.1.log > output_MONO.txt
 
 
 echo ""
 echo ""
 echo ""
 cat output_MONO.txt
-
 
