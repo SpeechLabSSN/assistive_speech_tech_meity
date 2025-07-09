@@ -83,7 +83,10 @@ cd kaldi/egs
 git clone https://github.com/SpeechLabSSN/assistive_speech_tech_meity.git
 cd assistive_speech_tech_meity
 ```
-### 2. Setup the test files in the current directory
+### 2. Setup configs and test files in the current directory
+```
+unzip kaldi_setup.zip
+```
 ```
 unzip path/to/ASR_test_data.zip
 
@@ -91,10 +94,12 @@ unzip path/to/ASR_test_data.zip
 ### 3. Run the test script
 ```
 # For batch testing
+chmod 777 ./testing_dysarthric_asr_all.sh
 ./testing_dysarthric_asr_all.sh <speaker> # Replace speaker with any of the following MRA, FGA, MMU, MGN, MKA.
 
 #To test a single wav file
-./testing_dysarthric_asr.sh <path/to/audio-file.wav>
+chmod 777 ./testing_dysarthric_asr.sh
+./testing_dysarthric_asr.sh <path/to/audio-file.wav> # Replace with .wav file path
 
 ```
 ```
