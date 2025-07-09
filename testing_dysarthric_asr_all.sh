@@ -47,14 +47,13 @@ echo ""
 
 #decode using monophone GMM-HMM
 
-steps/decode.sh --nj "1" --cmd "run.pl" --model ./models/asr/kaldi_dysarthria/exp_$SPK/mono/final.mdl models/asr/kaldi_dysarthria/exp_$SPK/mono/graph test_one models/asr/kaldi_dysarthria/exp_$SPK/mono/decode
+steps/decode.sh --nj "1" --cmd "run.pl" --model ./models/asr/kaldi_dysarthria/exp_$SPK/mono/40.mdl models/asr/kaldi_dysarthria/exp_$SPK/mono/graph test_one models/asr/kaldi_dysarthria/exp_$SPK/mono/decode
 
 #steps/decode.sh --nj "1" --cmd "run.pl" models/asr/kaldi_dysarthria/exp_$SPK/mono/graph test_one models/asr/kaldi_dysarthria/exp_$SPK/mono/decode
 
 #Store the decoded result
-#grep -h -Ev '^(#|nnet|LOG|apply|gmm|add|latgen-faster-mapped|copy|WARNING)' models/asr/kaldi_dysarthria/exp_$SPK/mono/decode/log/decode.1.log >> output_MONO.txt
-grep -h -Ev '^(#|nnet|LOG|apply|gmm|add|latgen-faster-mapped|copy|WARNING)' models/asr/kaldi_dysarthria/exp_$SPK/mono/decode/log/decode.1.log | awk '{print $0}' > output_MONO.txt
 
+grep -h -Ev '^(#|nnet|LOG|apply|gmm|add|latgen-faster-mapped|copy|WARNING)' models/asr/kaldi_dysarthria/exp_$SPK/mono/decode/log/decode.1.log > output_MONO.txt
 
 grep -w accounts ./models/asr/kaldi_dysarthria/exp_$SPK/mono/decode/log/analyze_lattice_depth_stats.log > temp
 awk '{print $2, $5}' temp > lattice_stats.txt
@@ -64,5 +63,6 @@ sed -i 's/%//g' lattice_stats.txt
 
 python3 prep_text.py $SPK
 
-steps/score_kaldi.sh --word-ins-penalty 1.0 test_one ./models/asr/kaldi_dysarthria/exp_$SPK/mono/graph ./models/asr/kaldi_dysarthria/exp_$SPK/mono/decode
+steps/score_kaldi.sh test_one ./models/asr/kaldi_dysarthria/exp_$SPK/mono/graph ./models/asr/kaldi_dysarthria/exp_$SPK/mono/decode
+
 cat models/asr/kaldi_dysarthria/exp_$SPK/mono/decode/scoring_kaldi/best_wer
