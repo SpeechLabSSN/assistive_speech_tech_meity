@@ -13,7 +13,7 @@ They are intended to support **speech processing applications for Indian languag
 * **ASR Models:**
 
   * [Transfer- Learning based ASR (Individual speaker 6)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/models/asr/kaldi_dysarthria)
-  * [ASR (mild and moderate speakers)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/class-wise%20ASR%20models)
+  * [Class-wise ASR (mild and moderate speakers)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/class-wise%20ASR%20models)
 
 * **TTS Models:**
 
@@ -37,7 +37,7 @@ They are intended to support **speech processing applications for Indian languag
 
 ---
 
-### 🔧 Setting Up Kaldi ( for compatibility)
+### 🔧 Setting Up Kaldi (for compatibility)
 
 #### Download and Setup Prerequisites
 
@@ -50,18 +50,18 @@ sudo unzip prerequisites.zip -d /usr/lib
 
 ---
 
-#### Directory Structure
+#### Kaldi Directory Structure
 
 ```
 kaldi/
   egs/
     cwd/
-      steps/       ← old steps directory
-      utils/       ← old utils directory
-      path.sh      ← old path.sh (update KALDI_ROOT)
-  src/           ← old kaldi/src
-  tools/         ← old kaldi/tools
-prerequisites.zip
+      steps/       ← steps directory
+      utils/       ← utils directory
+      path.sh      ← path.sh (update KALDI_ROOT)
+  src/           ← kaldi/src
+  tools/         ← kaldi/tools
+
 ```
 
 ---
@@ -95,7 +95,7 @@ make -j $(nproc)
 
 ---
 
-## Testing ASR
+## Testing Transfer learning based ASR
 
 ### 1️⃣ Clone and Setup
 
@@ -133,7 +133,7 @@ chmod 777 ./testing_dysarthric_asr.sh
 
 ---
 
-### Decode Example
+## Testing Class-wise ASR
 
 ```bash
 # Usage: decode_tri.sh <exp_dir> <test_data_dir>
