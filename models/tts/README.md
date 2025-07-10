@@ -21,17 +21,6 @@ This folder contains **speaker-adaptive Text-to-Speech (TTS) models**  trained 
 * **Number of dysarthric speakers:** 7 mild, 10 moderate
 * **Output:** Speaker-adapted TTS models, \~1000 utterances per speaker
 
-### Features
-
-* Higher intelligibility
-* Speaker identity not fully preserved
-
-### Evaluation
-
-* **MOS (Mean Opinion Score):**
-
-  * Mild speakers: \~3.0
-  * Moderate speakers: \~2.8
 
 ---
 
