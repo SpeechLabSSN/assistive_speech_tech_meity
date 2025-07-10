@@ -1,210 +1,226 @@
 # Assistive Speech Technologies
 
-This repository provides **Automatic Speech Recognition (ASR) and Text-to-Speech (TTS)** models developed by the Speech Lab, Department of Electronics and Communication Engineering, SSN College of Engineering, Chennai. These models were created as part of the Assistive Technologies module within the Bashini: National Language Translation Mission (NLTM) – Speech Technologies in Indian Languages Project, funded by the Ministry of Electronics and Information Technology (MeitY), Government of India.
+This repository provides **Automatic Speech Recognition (ASR) and Text-to-Speech (TTS)** models developed by the Speech Lab, Department of Electronics and Communication Engineering, SSN College of Engineering, Chennai.
 
-The models aim to support speech processing applications for Indian languages and are intended for research and assistive technology development.
-This repo contains:
-- [Pre-trained ASR model_Individual_speaker_6](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/models/asr/kaldi_dysarthria)
-- [ASR mild and moderate](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/class-wise%20ASR%20models)
-- [TTS models HTS](models/tts/hts)
-- [TTS models Taco2](models/tts/taco2)
-- Script for testing ASR - [decode_mono.sh](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/blob/main/models/asr/kaldi_dysarthria/decode_mono.sh) , [decode_tri.sh](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/blob/main/class-wise%20ASR%20models/decode_tri.sh)
-- [Test database](https://drive.google.com/file/d/1JiicZTT2X6Q_WQVltMrBwnnSyCHeL5n6/view?usp=drive_link) (shared upon request)
+These models were developed as part of the **Assistive Technologies module** within **Bashini: National Language Translation Mission (NLTM) – Speech Technologies in Indian Languages Project**, funded by the Ministry of Electronics and Information Technology (MeitY), Government of India.
 
-# Usage instructions
-
-Install and set up Kaldi & Espnet toolkit to test our ASR anfd TTS Models
-- Steps to test ASR -> [Jump Here](#testing-asr)
-- Steps to test TTS -> [Jump Here]()
+They are intended to support **speech processing applications for Indian languages**, especially for research and assistive technology development.
 
 ---
 
-## Set up Pre-requisites Kaldi (optional)
-The pre-trained models were trained using an **older version of Kaldi**.
-To avoid conflicts with your current Kaldi installation, use the provided old Kaldi files and dependencies as mentioned below.
- 1. `prerequisites.zip`
-     - Contains the shared libraries and dependencies that should be placed in /usr/lib on your system.
-     - This ensures that any binary or shared libs used by the old Kaldi will work correctly.
+## 📦 Repository Contents
 
- 2.  Old versions of:
+* **ASR Models:**
 
-       - `steps` directory
-       -   `utils` directory
-       -   `kaldi/src` directory
-       -   `kaldi/tools` directory
-       -   `path.sh` script (Kaldi root directory has to be updated)
+  * [Pre-trained ASR (Individual speaker 6)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/models/asr/kaldi_dysarthria)
+  * [ASR (mild and moderate speakers)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/class-wise%20ASR%20models)
 
-These are all packaged inside the assistive_speech_tech_meity.zip.
+* **TTS Models:**
 
-### Install Prerequisites
-```
+  * [HTS-based TTS](models/tts/hts)
+  * [Tacotron2-based TTS](models/tts/taco2)
+
+* **Test Database:**
+
+  * [Download link (Google Drive)](https://drive.google.com/file/d/1JiicZTT2X6Q_WQVltMrBwnnSyCHeL5n6/view?usp=drive_link) *(shared upon request)*
+
+---
+
+## ⚙️ Usage Instructions
+
+### Pre-requisites
+
+* [Kaldi](https://github.com/kaldi-asr/kaldi)
+* [ESPnet](https://github.com/espnet/espnet)
+
+> ✅ **Note:** The ASR models were trained using an **older version of Kaldi**, so specific setup steps are required.
+
+---
+
+### 🔧 Setting Up Kaldi ( for compatibility)
+
+#### Download and Setup Prerequisites
+
+1️⃣ Download `prerequisites.zip` (provided).
+2️⃣ Install dependencies:
+
+```bash
 sudo unzip prerequisites.zip -d /usr/lib
 ```
-### Setup & Usage Flow (with steps and utils inside cwd/) 
-Your working directory to set up old configs:
+
+---
+
+#### Directory Structure
+
 ```
 kaldi/
   egs/
     cwd/
-      steps/       ← old steps here  
-      utils/       ← old utils here  
-      path.sh      ← old path.sh file  
-  src/           ← old kaldi/src  
-  tools/         ← old kaldi/tools  
-prerequisites.zip  ← dependencies to copy to /usr/lib
+      steps/       ← old steps directory
+      utils/       ← old utils directory
+      path.sh      ← old path.sh (update KALDI_ROOT)
+  src/           ← old kaldi/src
+  tools/         ← old kaldi/tools
+prerequisites.zip
 ```
-### Set Kaldi Root & Environment
-In cwd/path.sh, set KALDI_ROOT to the Kaldi root using relative paths.
-Then source it before running any scripts:
+
+---
+
+#### Configure Environment
+
+Update `path.sh` in `cwd/`:
+
+```bash
+export KALDI_ROOT=<path_to_kaldi_root>
 ```
+
+Then:
+
+```bash
 source path.sh
 ```
-### Build Kaldi Binaries
- From kaldi/src:
-```
-cd ../../src
+
+---
+
+#### Build Kaldi
+
+```bash
+cd kaldi/src
 ./configure
 make clean -j $(nproc)
 make -j $(nproc)
 ```
-> Note: All training and decoding scripts inside the cwd/ directory must use the local steps/ and utils/ directories provided in the same folder.
-Do not use the global or system-wide Kaldi versions of these directories.
-Replace any existing steps/ and utils/ folders with the versions included in the assistive_speech_tech_meity.zip package to ensure compatibility with the older Kaldi setup used to train and test the models.
 
-![image](https://github.com/user-attachments/assets/c4ffe85d-772b-44e1-a578-7562f73be6db)
+> ⚠️ **Important:** Use only the provided `steps/` and `utils/` folders to ensure compatibility with older Kaldi scripts.
 
 ---
 
-# Testing ASR
+## Testing ASR
 
-### 1. Clone this repo and setup
-```
+### 1️⃣ Clone and Setup
+
+```bash
 cd kaldi/egs
 git clone https://github.com/SpeechLabSSN/assistive_speech_tech_meity.git
 cd assistive_speech_tech_meity
-```
-### 2. Setup configs and test files in the current directory
-```
 unzip kaldi_setup.zip
-```
-```
 unzip path/to/ASR_test_data.zip
+```
 
-```
-### 3. Run the test script
-```
-# For batch testing
+---
+
+### 2️⃣ Run Test Scripts
+
+#### Batch Testing
+
+```bash
 chmod 777 ./testing_dysarthric_asr_all.sh
-./testing_dysarthric_asr_all.sh <speaker> # Replace speaker with any of the following MRA, FGA, MMU, MGN, MKA.
+./testing_dysarthric_asr_all.sh <speaker_id> 
+```
 
-#To test a single wav file
+Example:
+
+```
+./testing_dysarthric_asr_all.sh MRA
+```
+
+#### Single Audio Test
+
+```bash
 chmod 777 ./testing_dysarthric_asr.sh
-./testing_dysarthric_asr.sh <path/to/audio-file.wav> # Replace with .wav file path
+./testing_dysarthric_asr.sh <path/to/audio-file.wav>
+```
 
-```
-```
-# usage
-# decode_tri.sh <exp_dir> <path_to_test_folder>
-# Example : To test with a mild dysarthric speaker data, use the following syntax
+---
+
+### Decode Example
+
+```bash
+# Usage: decode_tri.sh <exp_dir> <test_data_dir>
 decode_tri.sh exp_FG_mild ./test_data_mild/FSI
 ```
 
---- 
-# Information on the Testing and Training Datasets
+---
 
-## SSN-TDSC: Tamil Dysarthric Speech Corpus
+## 📄 Dataset
 
-Ours is the first disordered speech database (SSN-TDSC) in the Indian language. **This database is collected in the language Tamil**. The dysarthric speakers are identified across various severity levels. Sentences are formulated based on the inputs from speech and language therapists, caretakers, teachers from National Institute for empowerment for people with multiple disabilities. Around 300 phonetically balanced conversational sentences in various domains with 10 repetitions each are collected. The speakers are asked to repeat the sentences after the trainer.
+### SSN-TDSC: Tamil Dysarthric Speech Corpus
+
+* First disordered speech database in Indian languages (Tamil).
+* Collected from mild and moderate dysarthric speakers, with guidance from therapists at National Institute for Empowerment for People with Multiple disabilities NIEPMD.
+* \~300 phonetically balanced sentences, repeated 10 times each.
 
 ---
 
-## Transfer-learning Based ASR
+## 🤝 ASR: Transfer Learning Approach
 
 ### Training
 
-The speaker-independent normal speaker’s source model is trained with 10 normal speaker’s speech data who have uttered 365 utterances each. While training the normal speaker’s source model the vocabulary of the application-based dysarthric speech is included in the lexicon for training. 
-
-13-dimensional Mel-frequency cepstral coefficients (MFCC’s) are extracted and transformed into a 40-dimensional vector and a speaker adaptive training using GMM-HMM is employed based on feature-space maximum likelihood linear regression. 
-
-With the trained HMM, a TDNN-F network incorporating CNNs is trained for the normal speakers. The trained normal speaker model is the source model for the target dysarthric speaker. The augmented dysarthric speech data is then trained using 3-layered CNN with three epochs, at a batch size of 16 and 0.0005 learning rate using L2 regularization. The DNN parameters are transformed from the source model to the target model to train the speech of the target dysarthric speaker.
+* Source model: 10 normal speakers, 365 utterances each.
+* Feature: 13D MFCC → 40D transformation.
+* Speaker Adaptive Training with GMM-HMM.
+* Further fine-tuned using CNN-TDNN for dysarthric speakers.
 
 ### Testing
 
-With the trained dysarthric speaker model, testing of the dysarthric speech recognition system is performed using the augmented test data which consists of 175 sentences (5 original test sentences * 35 augmented sentences).
+* 175 augmented test sentences (35 augmentations x 5 originals).
 
 ---
 
-## HTS-Based Speaker Adaptive TTS Systems
+## 🔊 TTS Systems
 
-### Experimental Setup
+### HTS-Based
 
-- Training data – 4 normal speakers’ native Tamil data of approximately 1 hour duration each (Aarthi, Rajiv, Sherlin & Ramya)  
-- Adaptation data – dysarthric speakers’ data (for all mild and moderate speakers of TDSC dataset – 365 sentences)  
-- Number of dysarthric speakers: Mild speaker – 7 & Moderate speaker – 10  
-- For each dysarthric speaker, a TTS is developed with them as an adapted speaker. Totally, we have 17 HTS-based adaptation TTS. In total 1000 utterances (including 365 from SSN TDSC) are synthesized for each dysarthric speaker (1000 x 17 utterances).
+* Adaptation: 7 mild + 10 moderate speakers from TDSC.
+* \~1000 synthesized utterances per speaker.
 
 ---
 
-## Tacotron-Based Speaker Adaptive TTS Systems
+### Tacotron2-Based
 
-### Experimental Setup
-
-- Training data - Approximately 11 hours of data from 40 native Tamil speakers (approx. 5.5 hrs of data from 15 female speakers and another 5.5 hrs from 25 male speakers)  
-- Fine-tuning - 325 utterances of the SSN TDSC from the required dysarthric speaker  
-- In total 1000 utterances (including 365 from SSN TDSC) are synthesized for each dysarthric speaker (1000 x 17 utterances).
-
-# Benchmarking Metrics for Dysarthric Speech ASR and TTS Systems
-
-This document summarizes the performance metrics used to evaluate Automatic Speech Recognition (ASR) and Text-to-Speech (TTS) systems developed for dysarthric speakers. Evaluation metrics include **Word Error Rate (WER)** for ASR and **Mean Opinion Score (MOS)** for TTS.
+* Pre-trained on \~11 hours (40 Tamil speakers).
+* Fine-tuned using \~325 utterances per dysarthric speaker.
+* \~1000 synthesized utterances per speaker.
 
 ---
 
-##  ASR Performance Metrics
+## 📊 Benchmark Metrics
+
+### ASR
 
 **Metric:** Word Error Rate (WER)  
 **Model:** Transfer Learning-based ASR for Domain-Specific Sentences
 
-| Speaker ID | Domain / Application         | WER (Test Data) | WER (Real-Time Test Data) |
-|------------|------------------------------|------------------|-----------------------------|
-| MRA (mild) | Handling Departmental Stores | 4%              | 6%                          |
-| FGA (mod)  | Classroom Assistance         | 5%              | 8%                          |
-| MMU (mod)  | Handling Departmental Stores | 7.5%            | 9%                          |
-| MGN (mod)  | Handling a Nursery           | 8.3%            | 11%                         |
-| MKA (mod)  | Classroom Assistance         | 10%             | 12%                         |
-| FDH (mod)  | Handling a Xerox Shop        | 10.2%           | 12%                         |
+| Speaker    | Domain     | WER (Test) | WER (Real-Time) |
+| ---------- | ---------- | ---------- | --------------- |
+| MRA (mild) | Stores     | 4%         | 6%              |
+| FGA (mod)  | Classroom  | 5%         | 8%              |
+| MMU (mod)  | Stores     | 7.5%       | 9%              |
+| MGN (mod)  | Nursery    | 8.3%       | 11%             |
+| MKA (mod)  | Classroom  | 10%        | 12%             |
+| FDH (mod)  | Xerox shop | 10.2%      | 12%             |
 
 ---
 
-##  TTS Performance Metrics
+### TTS
 
-### HMM-based TTS (HTS)
+#### HTS
 
-- **Speakers:** 10 moderate, 7 mild dysarthric speakers
-- **Findings:**
-  - Higher intelligibility compared to Tacotron-based systems
-  - Speaker identity **not** preserved
-  - **MOS (Mean Opinion Score):**
-    - Mild Speakers: **3.0**
-    - Moderate Speakers: **2.8**
+* **MOS:**
 
-### Tacotron-based TTS
+  * Mild: 3.0
+  * Moderate: 2.8
+* Higher intelligibility, less speaker identity preservation.
 
-- **Speakers:** 7 mild dysarthric speakers
-- **Findings:**
-  - Speaker identity preserved
-  - Lower intelligibility than HTS
-  - **MOS:** **2.5**
+#### Tacotron2
+
+* **MOS:** 2.5
+* Lower intelligibility, better speaker identity preservation.
 
 ---
 
-## Summary
+## 📚 Publications
 
-- ASR models demonstrate low WER for mild speakers (as low as 4%) and acceptable performance in real-time conditions.
-- HTS-based TTS systems are more intelligible but compromise speaker identity.
-- Tacotron-based TTS systems better preserve speaker identity but have lower intelligibility.
-
-
-# Publications:
 
 - T. A. Mariya Celin, P. Vijayalakshmi, T. Nagarajan, "Data augmentation techniques for transfer learning-based continuous dysarthric speech recognition", Circuits, Systems, and Signal Processing, Vol. 42, pp. 601 -  622, 2022.
 - M. Dhanalakshmi, T. Nagarajan, P. Vijayalakshmi, "Significant sensors and parameters in assessment of dysarthric speech", Sensor Review, Vol. 41, pp. 271-286, 2021.
@@ -215,3 +231,30 @@ This document summarizes the performance metrics used to evaluate Automatic Spee
 - T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Dysarthric speech corpus in tamil for rehabilitation research", in Proc. of IEEE TENCON, pp. 2610-2613, 2016.
 - P. Vijayalakshmi, T. Nagarajan, "Assessment and intelligibility modification for dysarthric speakers", Chapter 3 – Voice Technologies for Reconstruction and Enhancement, De Gruyter Series in Speech Technology and Text Mining in Medicine and Healthcare, pp. 67 – 94, 2020.
 - P. Vijayalakshmi, T. A. Mariya Celin, T. Nagarajan, "Selective pole modification-based technique for the analysis and detection of hypernasality", Chapter 2 – Signal and Acoustic Modeling for Speech and Communication Disorders, De Gruyter Series in Speech Technology and Text Mining in Medicine and Healthcare, pp. 33 – 68, 2018.
+
+---
+
+## ✅ Summary
+
+* 🔹 **ASR:** Low WER for mild speakers; robust in real-time.
+* 🔹 **HTS TTS:** Better intelligibility, less speaker identity.
+* 🔹 **Tacotron TTS:** Better identity, lower intelligibility.
+
+---
+
+## 💬 Contact
+
+For test database access or additional support, please [open an issue](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/issues) or contact the Speech Lab, SSN College of Engineering.
+
+---
+
+## 📝 License
+
+This project uses code and models based on Kaldi and ESPnet toolkits.
+
+* **Kaldi (DNN-HMM and monophone models):** Licensed under the Apache License 2.0.
+* **ESPnet (Tacotron2 models):** Licensed under the [Apache License 2.0.](https://github.com/espnet/espnet/blob/master/LICENSE)
+  
+For commercial use or additional permissions, please contact the Speech Lab, SSN College of Engineering.
+
+---
