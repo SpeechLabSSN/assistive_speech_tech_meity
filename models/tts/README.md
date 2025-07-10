@@ -37,8 +37,6 @@ This folder contains **speaker-adaptive Text-to-Speech (TTS) models**  trained 
 ## 📝 License
 
 * **ESPnet code and Tacotron2 models:** Apache License 2.0
-* **HTS system code:** HTS is distributed under a non-commercial license; please refer to [HTS License](https://hts.sp.nitech.ac.jp/?Download) for details.
-
 ---
 
 ## 📄 Citation
