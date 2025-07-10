@@ -1,8 +1,4 @@
-# Domain-Specific Speaker-Dependent ASR
-
-This project focuses on **domain-specific, speaker-dependent Automatic Speech Recognition (ASR)** models. Each ASR system has been trained using speech data from individual speakers in specific task-oriented domains.
-
-## Overview
+# Overview
 
 The ASR systems were trained using data from various speakers, each associated with a distinct real-world domain. The goal is to evaluate performance in speaker-specific, domain-bound scenarios.
 
@@ -34,7 +30,7 @@ Speaker-dependent ASR systems are trained and optimized for a **specific individ
 - **Handling a Nursery**: Focuses on interactions in childcare environments.
 - **Handling a Xerox Shop**: Covers common tasks like taking print requests, handling customer queries, and operating printing machines.
 
-## 📁 Project Structure (Optional)
+## 📁 Project Structure
 
 ```
 asr/
@@ -48,3 +44,4 @@ asr/
 │
 └── README.md
 ```
+> Note: The models are trained for specific speakers and domains. Testing with unknown speakers or out-of-domain data may not yield accurate results.
