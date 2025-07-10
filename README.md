@@ -12,7 +12,7 @@ They are intended to support **speech processing applications for Indian languag
 
 * **ASR Models:**
 
-  * [Teansfer- Learning based ASR (Individual speaker 6)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/models/asr/kaldi_dysarthria)
+  * [Transfer- Learning based ASR (Individual speaker 6)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/models/asr/kaldi_dysarthria)
   * [ASR (mild and moderate speakers)](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/tree/main/class-wise%20ASR%20models)
 
 * **TTS Models:**
