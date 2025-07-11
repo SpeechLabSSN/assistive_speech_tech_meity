@@ -87,8 +87,9 @@ kaldi/
 
 ```bash
 source path.sh
+echo $KALDI_ROOT
 ```
-
+Setup path.sh and ensure kaldi root is correctly set
 > ⚠️ **Important:** Use only the provided `steps/` and `utils/` folders to ensure compatibility with older Kaldi scripts.
 
 
