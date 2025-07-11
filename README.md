@@ -1,4 +1,6 @@
-# Assistive Speech Technologies
+<img width="1439" height="169" alt="image" src="https://github.com/user-attachments/assets/8074d693-a139-47b5-8177-a1ee4429981e" />
+
+---
 
 This repository provides **Automatic Speech Recognition (ASR) and Text-to-Speech (TTS)** models developed by the Speech Lab, Department of Electronics and Communication Engineering, SSN College of Engineering, Chennai.
 
@@ -135,10 +137,7 @@ chmod 777 ./testing_dysarthric_asr.sh
 
 ## Testing Class-wise ASR
 
-```bash
-# Usage: decode_tri.sh <exp_dir> <test_data_dir>
-decode_tri.sh exp_FG_mild ./test_data_mild/FSI
-```
+[Click here](class-wise ASR models/README.md) to see the detailed steps.
 
 ---
 
