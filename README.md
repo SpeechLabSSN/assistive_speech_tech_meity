@@ -37,32 +37,47 @@ They are intended to support **speech processing applications for Indian languag
 
 > ✅ **Note:** The ASR models were trained using an **older version of Kaldi**, so specific setup steps are required.
 
+
 ---
 
-### 🔧 Setting Up Kaldi (for compatibility)
+## Testing Transfer learning based ASR
 
-#### Download and Setup Prerequisites
-
-1️⃣ Download `prerequisites.zip` (provided).
-2️⃣ Install dependencies:
+### 1️⃣ Clone and Setup
+#### Open your terminal and execute the following commands:
 
 ```bash
-sudo unzip prerequisites.zip -d /usr/lib
+cd kaldi/egs
+```
+```
+git clone https://github.com/SpeechLabSSN/assistive_speech_tech_meity.git
+```
+```
+cd assistive_speech_tech_meity
+```
+```
+unzip kaldi_setup.zip
+```
+```
+unzip <path/to>/ASR_test_data.zip # update with the correct path
 ```
 
 ---
-
-#### Kaldi Directory Structure
+#### Your Directory Structure will look like:
 
 ```
 kaldi/
   egs/
-    cwd/
+    assitive_speech_tech_meity/
+      conf/        ← conf directory
+      local/       ← local directory
       steps/       ← steps directory
       utils/       ← utils directory
       path.sh      ← path.sh (update KALDI_ROOT)
-  src/           ← kaldi/src
-  tools/         ← kaldi/tools
+      output_MONO.txt                 ← output file (generated after testing)
+      text_<spk>                      ← ground truth transcripts
+      kaldi_setup.zip                 ← contains conf, local,utils, steps
+      testing_dysarthric_asr.sh       ← testing script - script to test a single audio file corresponding to a speaker
+      testing_dysarthric_asr_all.sh   ← batch testing - script to test multiple audio files corresponding to a speaker
 
 ```
 
@@ -70,50 +85,16 @@ kaldi/
 
 #### Configure Environment
 
-Update `path.sh` in `cwd/`:
-
-```bash
-export KALDI_ROOT=<path_to_kaldi_root>
-```
-
-Then:
-
 ```bash
 source path.sh
 ```
 
----
-
-#### Build Kaldi
-
-```bash
-cd kaldi/src
-./configure
-make clean -j $(nproc)
-make -j $(nproc)
-```
-
 > ⚠️ **Important:** Use only the provided `steps/` and `utils/` folders to ensure compatibility with older Kaldi scripts.
 
----
-
-## Testing Transfer learning based ASR
-
-### 1️⃣ Clone and Setup
-
-```bash
-cd kaldi/egs
-git clone https://github.com/SpeechLabSSN/assistive_speech_tech_meity.git
-cd assistive_speech_tech_meity
-unzip kaldi_setup.zip
-unzip path/to/ASR_test_data.zip
-```
-
----
 
 ### 2️⃣ Run Test Scripts
 
-#### Batch Testing
+#### Batch Testing (for multiple audio files)
 
 ```bash
 chmod 777 ./testing_dysarthric_asr_all.sh
@@ -131,113 +112,120 @@ Example:
 ```bash
 chmod 777 ./testing_dysarthric_asr.sh
 ./testing_dysarthric_asr.sh <path/to/audio-file.wav>
-```
 
+```
+#### To Display output in terminal
+```
+cat output_MONO.txt
+```
 ---
 
 ## Testing Class-wise ASR
 
-[Click here](class-wise ASR models/README.md) to see the detailed steps.
+[Click here](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/blob/main/class-wise%20ASR%20models/README.md) to see the detailed steps.
 
 ---
 
-## 📄 Dataset
+# 🗂️ Dataset and  Summary
 
-### SSN-TDSC: Tamil Dysarthric Speech Corpus
-
-* First disordered speech database in Indian languages (Tamil).
-* Collected from mild and moderate dysarthric speakers, with guidance from therapists at National Institute for Empowerment for People with Multiple disabilities NIEPMD.
-* \~300 phonetically balanced sentences, repeated 10 times each.
+## 📄 Dataset: SSN-TDSC
+This is the first disordered speech database in an **Indian language, Tamil**. The data was collected from **mild, moderate and severe** dysarthric speakers under the guidance of *therapists from  "National Institute for Empowerment of Persons with Multiple Disabilities (NIEPMD)*. The database consists of approximately **300 phonetically balanced sentences**, each repeated 10 times, providing a rich resource for research and development in speech disorders and assistive technologies.
 
 ---
 
 ## 🤝 ASR: Transfer Learning Approach
-
 ### Training
-
-* Source model: 10 normal speakers, 365 utterances each.
-* Feature: 13D MFCC → 40D transformation.
-* Speaker Adaptive Training with GMM-HMM.
-* Further fine-tuned using CNN-TDNN for dysarthric speakers.
+- Source model: 10 normal speakers, 365 utterances each.
+- Features: 13D MFCC → 40D transformation.
+- Speaker Adaptive Training with GMM-HMM.
+- Further fine-tuned with CNN-TDNN for dysarthric speakers.
 
 ### Testing
-
-* 175 augmented test sentences (35 augmentations x 5 originals).
-
+- 175 augmented test sentences (35 augmentations × 5 originals)
+- Data augmenation is carried out using TTS systems such as HTS and Tacotron2.
 ---
-
 ## 🔊 TTS Systems
+### HTS-Based 
+- **Training data:**  
+  - Native Tamil speech from 4 normal speakers: Aarthi, Rajiv, Sherlin, and Ramya  
+  - Approximately 1 hour of recording per speaker
 
-### HTS-Based
+- **Adaptation data:**  
+  - Speech from dysarthric speakers (mild and moderate) of the TDSC dataset  
+  - Consists of 365 sentences
 
-* Adaptation: 7 mild + 10 moderate speakers from TDSC.
-* \~1000 synthesized utterances per speaker.
+- **Number of dysarthric speakers:**  
+  - Mild dysarthria: 7 speakers  
+  - Moderate dysarthria: 10 speakers
 
+- **TTS development:**  
+  - One HTS-based adapted TTS model created for each dysarthric speaker  
+  - Total of 17 adapted TTS models (7 mild + 10 moderate)
+
+- **Synthesized data:**  
+  - Around 1000 utterances synthesized per dysarthric speaker, including 365 from SSN TDSC  
+  - Total synthesized utterances across all speakers: 17,000 (1000 x 17)
 ---
-
 ### Tacotron2-Based
+- **Training Data:**  
+  Approximately **11 hours** of speech data collected from **40 native Tamil speakers**, consisting of:  
+  - ~5.5 hours from **15 female** speakers  
+  - ~5.5 hours from **25 male** speakers  
 
-* Pre-trained on \~11 hours (40 Tamil speakers).
-* Fine-tuned using \~325 utterances per dysarthric speaker.
-* \~1000 synthesized utterances per speaker.
+- **Fine-tuning Data:**  
+  For each dysarthric speaker, **325 utterances** from the **SSN TDSC** dataset are used for fine-tuning.
 
+- **Synthesis Data:**  
+  For each dysarthric speaker, a total of **1000 synthesized utterances** are generated, which includes:  
+  - 365 utterances from the SSN TDSC  
+  - 635 additional synthesized utterances  
+
+- **Total Utterances per Dysarthric Speaker:**  
+  1000 utterances × 17 speakers
 ---
-
 ## 📊 Benchmark Metrics
-
 ### ASR
+**Metric:** Word Error Rate (WER)
 
-**Metric:** Word Error Rate (WER)  
-**Model:** Transfer Learning-based ASR for Domain-Specific Sentences
-
-| Speaker    | Domain     | WER (Test) | WER (Real-Time) |
-| ---------- | ---------- | ---------- | --------------- |
-| MRA (mild) | Stores     | 4%         | 6%              |
-| FGA (mod)  | Classroom  | 5%         | 8%              |
-| MMU (mod)  | Stores     | 7.5%       | 9%              |
-| MGN (mod)  | Nursery    | 8.3%       | 11%             |
-| MKA (mod)  | Classroom  | 10%        | 12%             |
-| FDH (mod)  | Xerox shop | 10.2%      | 12%             |
-
----
+| Speaker | Domain     | WER (Test) | WER (Real-Time) |
+|-----------|-------------|-------------|----------------|
+| MRA (mild) | Stores     | 4%         | 6%            |
+| FGA (mod)  | Classroom  | 5%         | 8%            |
+| MMU (mod)  | Stores     | 7.5%       | 9%            |
+| MGN (mod)  | Nursery    | 8.3%       | 11%          |
+| MKA (mod)  | Classroom  | 10%        | 12%          |
+| FDH (mod)  | Xerox shop| 10.2%      | 12%          |
 
 ### TTS
-
 #### HTS
-
-* **MOS:**
-
-  * Mild: 3.0
-  * Moderate: 2.8
-* Higher intelligibility, less speaker identity preservation.
+- MOS:
+  - Mild: 3.0
+  - Moderate: 2.8
+- Higher intelligibility, less speaker identity preservation.
 
 #### Tacotron2
-
-* **MOS:** 2.5
-* Lower intelligibility, better speaker identity preservation.
+- MOS: 2.5
+- Lower intelligibility, better speaker identity preservation.
 
 ---
 
 ## 📚 Publications
-
-
-- T. A. Mariya Celin, P. Vijayalakshmi, T. Nagarajan, "Data augmentation techniques for transfer learning-based continuous dysarthric speech recognition", Circuits, Systems, and Signal Processing, Vol. 42, pp. 601 -  622, 2022.
-- M. Dhanalakshmi, T. Nagarajan, P. Vijayalakshmi, "Significant sensors and parameters in assessment of dysarthric speech", Sensor Review, Vol. 41, pp. 271-286, 2021.
-- T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Data Augmentation using virtual microphone array synthesis and multi-resolution feature extraction for isolated word dysarthric speech recognition", IEEE Journal of selected topics on signal processing, Vol. 14, No. 2, pp. 346 – 354, 2020.
-- T. A. MariyaCelin, G. Anushiya Rachel, T. Nagarajan, P. Vijayalakshmi, "A Weighted Speaker-Specific Confusion Transducer Based Augmentative and Alternative Speech Communication Aid for Dysarthric Speakers", IEEE Transactions on Neural Systems and Rehabilitation Engineering, Vol. 27, Issue 2, pp. 187-197, 2019.
-- M. Dhanalakshmi, T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Speech-input speech-output communication for dysarthric speakers using HMM-based speech recognition and adaptive synthesis system", Circuits, Systems, and Signal Processing, Vol. 37, pp. 674-703, 2018.
-- M. Dhanalakshmi, T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Electromagnetic articulograph sensor-to-sound unit mapping-based intelligibility assessment of dysarthric speech", in Proc. of IEEE TENCON, pp. 1784-1789, 2017.
-- T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Dysarthric speech corpus in tamil for rehabilitation research", in Proc. of IEEE TENCON, pp. 2610-2613, 2016.
-- P. Vijayalakshmi, T. Nagarajan, "Assessment and intelligibility modification for dysarthric speakers", Chapter 3 – Voice Technologies for Reconstruction and Enhancement, De Gruyter Series in Speech Technology and Text Mining in Medicine and Healthcare, pp. 67 – 94, 2020.
-- P. Vijayalakshmi, T. A. Mariya Celin, T. Nagarajan, "Selective pole modification-based technique for the analysis and detection of hypernasality", Chapter 2 – Signal and Acoustic Modeling for Speech and Communication Disorders, De Gruyter Series in Speech Technology and Text Mining in Medicine and Healthcare, pp. 33 – 68, 2018.
+- T. A. Mariya Celin, P. Vijayalakshmi, T. Nagarajan, "Data augmentation techniques for transfer learning-based continuous dysarthric speech recognition", Circuits, Systems, and Signal Processing, Vol. 42, pp. 601–622, 2022.
+- M. Dhanalakshmi, T. Nagarajan, P. Vijayalakshmi, "Significant sensors and parameters in assessment of dysarthric speech", Sensor Review, Vol. 41, pp. 271–286, 2021.
+- T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Data Augmentation using virtual microphone array synthesis and multi-resolution feature extraction for isolated word dysarthric speech recognition", IEEE JSTSP, Vol. 14, No. 2, pp. 346–354, 2020.
+- T. A. MariyaCelin, G. Anushiya Rachel, T. Nagarajan, P. Vijayalakshmi, "A Weighted Speaker-Specific Confusion Transducer Based Augmentative and Alternative Speech Communication Aid for Dysarthric Speakers", IEEE TNSRE, Vol. 27, Issue 2, pp. 187–197, 2019.
+- M. Dhanalakshmi, T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Speech-input speech-output communication for dysarthric speakers using HMM-based speech recognition and adaptive synthesis system", CSSP, Vol. 37, pp. 674–703, 2018.
+- M. Dhanalakshmi, T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Electromagnetic articulograph sensor-to-sound unit mapping-based intelligibility assessment of dysarthric speech", Proc. IEEE TENCON, pp. 1784–1789, 2017.
+- T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Dysarthric speech corpus in Tamil for rehabilitation research", Proc. IEEE TENCON, pp. 2610–2613, 2016.
+- P. Vijayalakshmi, T. Nagarajan, "Assessment and intelligibility modification for dysarthric speakers", Chapter 3, De Gruyter Series, pp. 67–94, 2020.
+- P. Vijayalakshmi, T. A. Mariya Celin, T. Nagarajan, "Selective pole modification-based technique for the analysis and detection of hypernasality", Chapter 2, De Gruyter Series, pp. 33–68, 2018.
 
 ---
 
 ## ✅ Summary
-
-* 🔹 **ASR:** Low WER for mild speakers; robust in real-time.
-* 🔹 **HTS TTS:** Better intelligibility, less speaker identity.
-* 🔹 **Tacotron TTS:** Better identity, lower intelligibility.
+- 🔹 **ASR:** Low WER for mild speakers; robust in real-time.
+- 🔹 **HTS TTS:** Better intelligibility, less speaker identity.
+- 🔹 **Tacotron TTS:** Better identity preservation, lower intelligibility.
 
 ---
 
