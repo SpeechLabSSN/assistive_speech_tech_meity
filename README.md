@@ -122,7 +122,7 @@ cat output_MONO.txt
 
 ## Testing Class-wise ASR
 
-[Click here](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/blob/main/class-wise%20ASR%20models/README.md) to see the detailed steps.
+[Click here](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/blob/main/class-wise%20ASR%20models#README.md) to see the detailed steps.
 
 ---
 
