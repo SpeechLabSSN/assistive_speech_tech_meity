@@ -1,6 +1,6 @@
 # 🔊 Text-to-Speech (TTS) Systems
 
-This folder contains **speaker-adaptive Text-to-Speech (TTS) models**  trained using HTS amd Tacotron2
+This folder contains **speaker-adaptive Text-to-Speech (TTS) models**  trained using HTS and Tacotron2
 
 ---
 
