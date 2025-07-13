@@ -115,6 +115,10 @@ chmod 777 ./testing_dysarthric_asr.sh
 ./testing_dysarthric_asr.sh <path/to/audio-file.wav>
 
 ```
+Example:
+```
+./testing_dysarthric_asr.sh ASR_test_data/FGA/test/S1_1_1.wav
+```
 #### To Display output in terminal
 ```
 cat output_MONO.txt
@@ -211,6 +215,10 @@ This is the first disordered speech database in an **Indian language, Tamil**. T
 ---
 
 ## 📚 Publications
+- Mariya Celin T.A., Vijayalakshmi P., Nagarajan T., Mrinalini K., “Augmentative and alternative speech communication (AASC) aid for people with dysarthria”, Computer Speech & Language, Volume 92, pp. 1-9, 2025.
+- P H Keerthi, P Vijayalakshmi, Anushiya Rachel Gladston and T Nagarajan," Analysis of  Features for Dysarthria Severity Classification From Speech ", in proceedings of   IEEE TENCON, pp. 1-4,  2024.
+- B Sanjay, Priyadharshini M.K, Vijayalakshmi P, and Nagarajan T. 2024. Severity Classification and Dysarthric Speech Detection using Self-Supervised Representations. In Proceedings of the 21st International Conference on Natural Language Processing (ICON), pages 621–628, AU-KBC Research Centre, Chennai, India. NLP Association of India (NLPAI).
+- Shruti Jeyaraman, Anantha K. Krishnan, Vijayalakshmi P, and Nagarajan T. 2024. Pronunciation scoring for dysarthric speakers with DNN-HMM based goodness of pronunciation (GoP) measure. In Proceedings of the 21st International Conference on Natural Language Processing (ICON), pages 616–620, AU-KBC Research Centre, Chennai, India. NLP Association of India (NLPAI).
 - T. A. Mariya Celin, P. Vijayalakshmi, T. Nagarajan, "Data augmentation techniques for transfer learning-based continuous dysarthric speech recognition", Circuits, Systems, and Signal Processing, Vol. 42, pp. 601–622, 2022.
 - M. Dhanalakshmi, T. Nagarajan, P. Vijayalakshmi, "Significant sensors and parameters in assessment of dysarthric speech", Sensor Review, Vol. 41, pp. 271–286, 2021.
 - T. A. Mariya Celin, T. Nagarajan, P. Vijayalakshmi, "Data Augmentation using virtual microphone array synthesis and multi-resolution feature extraction for isolated word dysarthric speech recognition", IEEE JSTSP, Vol. 14, No. 2, pp. 346–354, 2020.
