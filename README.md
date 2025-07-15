@@ -243,7 +243,7 @@ This is the first disordered speech database in an **Indian language, Tamil**. T
 For test database access or additional support, please [open an issue](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/issues) or contact the Speech Lab, SSN College of Engineering.
 
 ---
-## 🈶 Language Supprorted
+## 🈶 Language Supported
 **Tamil**
 
 ---
