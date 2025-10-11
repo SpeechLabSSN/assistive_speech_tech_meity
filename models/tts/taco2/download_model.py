@@ -3,7 +3,7 @@ import zipfile
 import os
 
 # === CONFIG ===
-FILE_ID = "1AbCDefGhIJklMnOpQrStUvWxYZ12345"  # 🔹 Replace with your Google Drive file ID
+FILE_ID = "1MGBPwbHVDTcaTvr9PllBvY-X07-pYEWq"  # 🔹 Replace with your Google Drive file ID
 OUTPUT_ZIP = "tacotron.zip"                   # 🔹 Name of the downloaded zip file
 EXTRACT_DIR = "."                             # 🔹 Current directory (change if needed)
 
