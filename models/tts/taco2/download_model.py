@@ -10,7 +10,7 @@ EXTRACT_DIR = "."                             # 🔹 Current directory (change i
 # === DOWNLOAD ===
 if not os.path.exists(OUTPUT_ZIP):
     print(f"Downloading {OUTPUT_ZIP} from Google Drive...")
-    gdown.download("https://drive.google.com/file/d/1MGBPwbHVDTcaTvr9PllBvY-X07-pYEWq/view?usp=sharing", OUTPUT_ZIP, quiet=False)
+    gdown.download(f"https://drive.google.com/uc?id={FILE_ID}", OUTPUT_ZIP, quiet=False)
     print("✅ Download complete.")
 else:
     print("📦 Zip file already exists. Skipping download.")
