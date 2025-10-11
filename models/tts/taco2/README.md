@@ -5,8 +5,9 @@
 ```bash
 cd models/tts/taco2
 ```
-### 2. Unzip the Tacotron2 model
+### 2. Download and Unzip the Tacotron2 model
 ```
+python3 download_model.py
 unzip tacotron.zip
 ```
 ### 3. Create a Python virtual environment
