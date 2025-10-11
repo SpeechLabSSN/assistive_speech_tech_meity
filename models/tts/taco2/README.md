@@ -27,7 +27,7 @@ pip install sentencepiece  # if not installed
 ```
 pip install scipy==1.10.1 # use this version
 ```
-Usage
+## Usage
 To synthesize Tamil text, use:
 
 ```
@@ -37,13 +37,13 @@ Example:
 ```
 python3 synthesize.py "கடவுளை வணங்கு" FSP
 ```
-The synthesized audio output is stored as `models/tts/taco2/test.wav`
-
-`<tamil_text>` : The Tamil text you want to synthesize.
+### Required Input
+`<tamil_text>` : The Tamil text you want to synthesize. 
 
 `<speaker-id>` : Speaker ID to use for synthesis. Example: FSP.
-
-# Speaker ID List
+### Expected output
+The synthesized audio output is stored as `models/tts/taco2/test.wav`
+## Speaker ID List
 - FAM
 - FBL
 - FC01
@@ -74,3 +74,8 @@ The synthesized audio output is stored as `models/tts/taco2/test.wav`
 - rajiv
 - ramya
 - sherlin
+## Notes
+
+- Make sure the virtual environment is activated before running the synthesis.
+- The speakers available depend on the pre-trained Tacotron2 model provided.
+- Output audio will be saved in the default directory as specified in synthesize.py.
