@@ -8,6 +8,8 @@ These models were developed as part of the **Assistive Technologies module** wit
 
 They are intended to support **speech processing applications for Indian languages**, especially for research and assistive technology development.
 
+The updated modles of this repositoiry can be found [here](https://github.com/SpeechLabSSN/ssn_speech_sisoca)
+
 ---
 
 ## 📦 Repository Contents
@@ -129,6 +131,12 @@ cat output_MONO.txt
 
 [Click here](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/blob/main/class-wise%20ASR%20models#readme) to see the detailed steps.
 
+---
+
+## Decoding the result
+```
+python3 tamil_trans.py to_tamil <text to be converted>
+```
 ---
 
 # 🗂️ Dataset and  Summary
