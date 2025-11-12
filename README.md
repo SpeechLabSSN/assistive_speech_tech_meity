@@ -23,8 +23,9 @@ They are intended to support **speech processing applications for Indian languag
 
   * [HTS-based TTS](models/tts/hts)
   * [Tacotron2-based TTS](models/tts/taco2)
+  * [Fastspeech2](models/tts/fastspeech2)
 
-* **Test Database:**
+* **Test Database:** (for ASR)
 
   * [Download link (Google Drive)](https://drive.google.com/file/d/1JiicZTT2X6Q_WQVltMrBwnnSyCHeL5n6/view?usp=drive_link) *(shared upon request)*
 
@@ -125,18 +126,16 @@ Example:
 ```
 cat output_MONO.txt
 ```
+## Decoding the result (to Tamil text)
+```
+python3 tamil_trans.py to_tamil <text to be converted>
+```
 ---
 
 ## Testing Class-wise ASR
 
 [Click here](https://github.com/SpeechLabSSN/assistive_speech_tech_meity/blob/main/class-wise%20ASR%20models#readme) to see the detailed steps.
 
----
-
-## Decoding the result
-```
-python3 tamil_trans.py to_tamil <text to be converted>
-```
 ---
 
 # 🗂️ Dataset and  Summary
@@ -243,6 +242,7 @@ This is the first disordered speech database in an **Indian language, Tamil**. T
 - 🔹 **ASR:** Low WER for mild speakers; robust in real-time.
 - 🔹 **HTS TTS:** Better intelligibility, less speaker identity.
 - 🔹 **Tacotron TTS:** Better identity preservation, lower intelligibility.
+- 🔹 **Fastspeech2:** Better identity preservation, Better intelligibility, Robust.
 
 ---
 
