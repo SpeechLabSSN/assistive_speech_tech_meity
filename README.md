@@ -8,7 +8,7 @@ These models were developed as part of the **Assistive Technologies module** wit
 
 They are intended to support **speech processing applications for Indian languages**, especially for research and assistive technology development.
 
-The updated modles of this repositoiry can be found [here](https://github.com/SpeechLabSSN/ssn_speech_sisoca)
+**INFO : 🗂️The updated models of this repository can be found [here](https://github.com/SpeechLabSSN/ssn_speech_sisoca)**
 
 ---
 
